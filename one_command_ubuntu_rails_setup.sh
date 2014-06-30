@@ -2,9 +2,9 @@
 echo "Updating system.."
 sudo apt-get update
 echo "Installing curl.."
-sudo apt-get install 
+sudo apt-get install curl
 echo "Installing RVM.."
-\curl -L https://get.rvm.io | bash -s stable
+\curl -sSL https://get.rvm.io | bash -s stable
 echo "Loading RVM.."
 source ~/.rvm/scripts/rvm
 echo "Installing RVM dependancies.."
