@@ -1,18 +1,20 @@
 <?php
 
 //======================================================================
-// Github Webhook 
+// Github Webhook
 //======================================================================
 
 /*
 * This is a simple deployment webhook.
-* Just copy this file into your server 
+* Just copy this file into your server
 * Use this file url(http://yoursite/github_webhook_deploy.php) as a webhook url into your github repo webhook settings.
 */
 
 $LOCAL_ROOT = 'YOUR_FOLDER_PATH';//Replace this with server path
 $json = file_get_contents('php://input');
 $obj = json_decode($json);
+if($obj->repository->full_name && $obj->repository->clone_url){
+
 
 $FOLDER_PATH = $LOCAL_ROOT . $obj->repository->full_name;
 $GIT_CLONE_URL = $obj->repository->clone_url;
@@ -35,7 +37,7 @@ echo "\r\n";
 echo "Deployment path:- ";
 echo $OWNER_PATH;
 echo "\r\n";
-echo "Git clone url :- ";  
+echo "Git clone url :- ";
 echo $GIT_CLONE_URL;
 echo "\r\n";
 
@@ -73,7 +75,10 @@ if(!is_dir($OWNER_PATH)){
 	echo shell_exec("rm -rf {$OWNER_PATH}");
 	echo "Cloning repo...";
 	echo shell_exec("cd {$OWNER_PATH} && git clone {$GIT_CLONE_URL}");
-	
+
+}
+}else{
+	echo "Invalid request..";
 }
 
-?>	
+?>
